@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>1A13</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        .header {
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4, #45b7d1);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            animation: fadeInUp 1s ease-out;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.2s forwards;
+            opacity: 0;
+        }
+
+        .main-card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin: 2rem auto;
+            max-width: 800px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            animation: slideInFromLeft 1s ease-out;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .main-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            animation: sweep 3s infinite;
+        }
+
+        .main-card h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: #4ecdc4;
+        }
+
+        .main-card p {
+            line-height: 1.6;
+            margin-bottom: 1.5rem;
+        }
+
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.3);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card-icon {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(45deg, #ff6b6b, #4ecdc4);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+            animation: bounce 2s infinite;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #ff6b6b;
+        }
+
+        .card p {
+          font-size: medium;
+            line-height: 1.6;
+            opacity: 0.9;
+            margin-bottom: 1rem;
+        }
+
+        .card-features {
+            list-style: none;
+            margin-top: 1rem;
+        }
+
+        .card-features li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .card-features li:last-child {
+            border-bottom: none;
+        }
+
+        .scroll-indicator {
+            text-align: center;
+            padding: 2rem;
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator span {
+            display: inline-block;
+            width: 30px;
+            height: 50px;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            position: relative;
+        }
+
+        .scroll-indicator span::before {
+            content: '';
+            position: absolute;
+            top: 8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 4px;
+            height: 10px;
+            background: #4ecdc4;
+            border-radius: 2px;
+            animation: scroll 2s infinite;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInFromLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes sweep {
+            0% {
+                left: -100%;
+            }
+            100% {
+                left: 100%;
+            }
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% {
+                transform: translateY(0);
+            }
+            40% {
+                transform: translateY(-10px);
+            }
+            60% {
+                transform: translateY(-5px);
+            }
+        }
+
+        @keyframes scroll {
+            0% {
+                opacity: 0;
+                transform: translate(-50%, 0);
+            }
+            50% {
+                opacity: 1;
+                transform: translate(-50%, 15px);
+            }
+            100% {
+                opacity: 0;
+                transform: translate(-50%, 25px);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .main-card {
+                margin: 1rem;
+                padding: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Shaping Tomorrow’s Leaders Today</h1>
+        <p>Join us in fostering knowledge, skills, and values that empower students to become the visionary leaders of the future.</p>
+    </div>
+
+    <div class="main-card">
+        <h2>Welcome to Our Platform</h2>
+        <p>Welcome to our learning community! I’m Nitin Singh, and I’m excited to guide you on this journey of knowledge and growth. Here, you’ll find the tools, resources, and support you need to unlock your true potential and achieve your academic dreams. Let’s learn, explore, and succeed together!</p>
+        <p>Scroll down to explore our featured services and discover how we can help you achieve your goals.</p>
+    </div>
+
+    <div class="scroll-indicator">
+        <span></span>
+    </div>
+
+    <div class="cards-grid">
+        <div class="card">
+            <div class="card-icon">🚀</div>
+            <h3>About Me & My Journey</h3>
+            <p>I am Nitin Singh, a passionate B.Tech CSE student dedicated to exploring the world of technology and innovation.</p>
+            <ul class="card-features">
+                <li>Divi-1A13</li>
+                <li>Roll-3</li>
+                <li>Course-B.tech CSE</li>
+                <li>Mob-7857865669</li>
+                <li>Gmail-maheshsingh1971kne@gmail.com</li>
+
+               <li><a style="color:chartreuse" href="https://www.instagram.com/_nitin__rajput._/">Instagram!</a></li>
+
+               <li><a style="color:chartreuse" href="https://github.com/maheshsingh1971kne-hub">Github!</a></li>
+
+               <li><a style="color:chartreuse" href="https://www.linkedin.com/in/nitin-rajput-46101a274/">Linkedin!</a></li>
+               
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🎨</div>
+            <h3>Subject-Principles of Communication (POC)</h3>
+            <p>Explore comprehensive notes on the Principles of Communication to understand the fundamental concepts, models, and techniques.These study materials cover topics like communication process, barriers, types, and strategies to improve clarity and understanding.</p>
+            <ul class="card-features">
+                 <li><a style="color:chartreuse" href="https://drive.google.com/file/d/1PVLc04NcUEdT5ArJn-AuprEYmV1u_4uH/view?usp=sharing">POC--Unit-01</a></li>
+
+
+                <li><a style="color:chartreuse" href="https://docs.google.com/presentation/d/1L1DynvRKRWOgSIHtrBJmapyhcUumHrBg/edit?usp=sharing&ouid=101980509623957457281&rtpof=true&sd=true">Punctuations_Irfatnaz (1)</a></li>
+
+
+               <li><a style="color:chartreuse" href="https://drive.google.com/file/d/1XybJqUvN5ZmyNZBqU1YXTWi8br3GClbR/view?usp=sharing">Meeting and Greetings </a></li>
+
+
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">📱</div>
+            <h3>Subject-Web Designing</h3>
+            <p>Here you will find complete Web Designing notes including HTML, CSS.Notes are explained in simple language with examples and are helpful for both beginners and advanced learners.</p>
+            <ul class="card-features">
+              <li><a style="color:chartreuse" href="https://drive.google.com/file/d/1hq3JbdAgaMwQB1o0xzfAQiG0oy4tt59H/view?usp=sharing">Web Designing_Syllabus</a></li>
+                
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">☁️</div>
+            <h3>Subject-Physics For Semiconductor</h3>
+            <p>Download Physics of Semiconductor notes including energy bands, carriers, PN junction, diodes, and applications. Notes are simple, clear, and exam-focused.</p>
+            <ul class="card-features">
+
+
+               <li><a style="color:chartreuse" href="https://drive.google.com/file/d/1g_kRufkMrNDd1rNE9FSRxIF4D9IRpqjz/view?usp=sharing">Text Book-OPTICS</a></li>
+
+
+               <li><a style="color:chartreuse" href="https://drive.google.com/file/d/1a_HJv-iN2tdQyacYXKonzbMxaGTJfjE1/view?usp=sharing">Unit 2_Optoelectronic</a></li>
+
+               <li><a style="color:chartreuse" href="https://drive.google.com/file/d/1AvBB70IlPR2FLC6_i1FWjyaHYNGSypzf/view?usp=sharing">1st year Syllabus PHY</a></li>
+
+               <li><a style="color:chartreuse" href="https://drive.google.com/file/d/1Pq4aD3sLnDfqqU3iWkA9czxsomu-FYja/view?usp=sharing">B. Tech Lab Manual PHY</a></li>
+                
+            </ul>
+        </div>
+
+        <div class="card">
+            <div class="card-icon">🔍</div>
+            <h3>Subject-Programming For Problem Solving</h3>
+            <p>PPS notes including C programming basics, algorithms, flowcharts, arrays, functions, pointers, and file handling. Easy explanations with examples and programs for beginners.</p>
+            <ul class="card-features">
+
+
+              <li><a style="color:chartreuse" href="https://drive.google.com/file/d/19adbW8VzQSdjPA3rfEceBcahNhhMQtJm/view?usp=sharing">Programming for Problem Solving _Syllabus</a></li> 
+
+               <li><a style="color:chartreuse" href="https://drive.google.com/file/d/1-lXGnapqii--WMT_OINsJfTDsF9J3BxV/view?usp=sharing">PPS CHAPTER1</a></li> 
+
+
+              
+
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Smooth scroll functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            
+            scrollIndicator.addEventListener('click', function() {
+                const cardsGrid = document.querySelector('.cards-grid');
+                cardsGrid.scrollIntoView({ behavior: 'smooth' });
+            });
+
+            // Add hover effects programmatically
+            const cards = document.querySelectorAll('.card');
+            cards.forEach(card => {
+                card.addEventListener('mouseenter', function() {
+                    this.style.transform = 'translateY(-10px)';
+                    this.style.boxShadow = '0 25px 50px rgba(0, 0, 0, 0.3)';
+                });
+
+                card.addEventListener('mouseleave', function() {
+                    this.style.transform = 'translateY(0)';
+                    this.style.boxShadow = '0 15px 30px rgba(0, 0, 0, 0.2)';
+                });
+            });
+        });
+    </script>
+</body>
+</html>
+
